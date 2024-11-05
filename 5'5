@@ -1,0 +1,79 @@
+import java.util.Scanner;
+public class Main {
+    static class Name {
+
+        private String surname;
+        private String firstName;
+        private String middleName;
+
+        public Name(String firstName) {
+            this.firstName = firstName;
+        }
+    
+        public Name(String firstName, String surname) {
+            this.firstName = firstName;
+            this.surname = surname;
+        }
+
+        public Name(String firstName, String surname, String middleName) {
+            this.firstName = firstName;
+            this.surname = surname;
+            this.middleName = middleName;
+        }
+
+        public String toString() {
+            StringBuilder sb = new StringBuilder();
+            if (surname != null && !surname.isEmpty()) sb.append(surname);
+            if (firstName != null && !firstName.isEmpty()) {
+                if (sb.length() > 0) sb.append(" ");
+                sb.append(firstName);
+            }
+            if (middleName != null && !middleName.isEmpty()) {
+                if (sb.length() > 0) sb.append(" ");
+                sb.append(middleName);
+            }
+            return sb.toString();
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+
+        String firstName;
+        while (true){
+            System.out.println("Введите имя: ");
+            firstName = scanner.nextLine().trim();
+            if (!firstName.isEmpty()){
+                break;
+            }
+            System.out.println("Ошибка");
+        }
+
+        System.out.println("Введите фамилию (или оставьте пустым): ");
+        String surname = scanner.nextLine().trim();
+
+        System.out.println("Введите отчество (или оставьте пустым): ");
+        String middleName = scanner.nextLine().trim();
+
+        Name userInputName;
+        if (!surname.isEmpty() && !middleName.isEmpty()) {
+            userInputName = new Name(firstName, surname, middleName);
+        } else if (!surname.isEmpty()) {
+            userInputName = new Name(firstName, surname);
+        } else {
+            userInputName = new Name(firstName);
+        }
+        System.out.println("Введенное имя: " + userInputName);
+
+        System.out.println("Примеры имен:");
+        Name name1 = new Name("Клеопатра");
+        Name name2 = new Name("Александр", "Пушкин", "Сергеевич");
+        Name name3 = new Name("Владимир", "Маяковский");
+        Name name4 = new Name("Христофор", "Бонифатьевич");
+
+        System.out.println(name1);
+        System.out.println(name2);
+        System.out.println(name3);
+        System.out.println(name4);
+    }
+}
