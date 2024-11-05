@@ -1,0 +1,55 @@
+import java.util.Scanner;
+class Name {
+    private String surname;
+    private String firstName;
+    private String middleName;
+    public Name(String surname, String firstName, String middleName) {
+        this.surname = surname;
+        this.firstName = firstName;
+        this.middleName = middleName;
+    }
+
+    public String toString() {
+        StringBuilder sb = new StringBuilder();
+        if (surname != null && !surname.isEmpty()) sb.append(surname);
+        if (firstName != null && !firstName.isEmpty()) {
+            if (sb.length() > 0) sb.append(" ");
+            sb.append(firstName);
+        }
+        if (middleName != null && !middleName.isEmpty()) {
+            if (sb.length() > 0) sb.append(" ");
+            sb.append(middleName);
+        }
+        return sb.toString();
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Name name1 = new Name("Пушкин", "Александр", "Сергеевич");
+        Name name2 = new Name("Маяковский", "Владимир", null);
+        Name name3 = new Name(null, "Клеопатра", null);
+        System.out.println(name1);
+        System.out.println(name2);
+        System.out.println(name3);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("\nВведите фамилию (или оставьте пустым): ");
+        String surname = scanner.nextLine().trim();
+        String firstName;
+        while (true){
+            System.out.println("Введите имя: ");
+            firstName = scanner.nextLine().trim();
+            if (!firstName.isEmpty()){
+                break;
+            }
+            System.out.println("Ошибка");
+        }
+        System.out.println("Введите отчество (или оставьте пустым): ");
+        String middleName = scanner.nextLine().trim();
+        Name userInputName = new Name(
+            surname.isEmpty() ? null : surname,
+            firstName.isEmpty() ? null : firstName,
+            middleName.isEmpty() ? null : middleName
+        );
+        System.out.println("Введенное имя: " + userInputName);
+    }
+}
