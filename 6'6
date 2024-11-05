@@ -1,0 +1,109 @@
+
+import java.util.Scanner;
+public class Main {
+    static class Fraction {
+        private int numerator;
+        private int denominator;
+
+        public Fraction(int numerator, int denominator) {
+            if (denominator == 0) {
+                throw new IllegalArgumentException("Знаменатель не может быть нулем");
+            }
+            this.numerator = numerator;
+            this.denominator = denominator;
+            simplify();
+        }
+
+        private int gcd(int a, int b) {
+            while (b != 0) {
+                int temp = b;
+                b = a % b;
+                a = temp;
+            }
+            return a;
+        }
+
+        private void simplify() {
+            int gcd = gcd(Math.abs(numerator), Math.abs(denominator));
+            numerator /= gcd;
+            denominator /= gcd;
+            if (denominator < 0) {
+                numerator = -numerator;
+                denominator = -denominator;
+            }
+        }
+
+        public String toString() {
+            return numerator + "/" + denominator;
+        }
+
+        public Fraction sum(Fraction other) {
+            int newNumerator = this.numerator * other.denominator + other.numerator * this.denominator;
+            int newDenominator = this.denominator * other.denominator;
+            return new Fraction(newNumerator, newDenominator);
+        }
+
+        public Fraction minus(Fraction other) {
+            int newNumerator = this.numerator * other.denominator - other.numerator * this.denominator;
+            int newDenominator = this.denominator * other.denominator;
+            return new Fraction(newNumerator, newDenominator);
+        }
+
+        public Fraction multiply(Fraction other) {
+            int newNumerator = this.numerator * other.numerator;
+            int newDenominator = this.denominator * other.denominator;
+            return new Fraction(newNumerator, newDenominator);
+        }
+
+        public Fraction div(Fraction other) {
+            if (other.numerator == 0) {
+                throw new IllegalArgumentException("Деление на ноль недопустимо");
+            }
+            int newNumerator = this.numerator * other.denominator;
+            int newDenominator = this.denominator * other.numerator;
+            return new Fraction(newNumerator, newDenominator);
+        }
+
+        public Fraction sum(int number) {
+            return this.sum(new Fraction(number, 1));
+        }
+
+        public Fraction minus(int number) {
+            return this.minus(new Fraction(number, 1));
+        }
+
+        public Fraction multiply(int number) {
+            return this.multiply(new Fraction(number, 1));
+        }
+
+        public Fraction div(int number) {
+            return this.div(new Fraction(number, 1));
+        }
+    }
+
+    public static void main(String[] args) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите числитель первой дроби: ");
+        int numerator1 = scanner.nextInt();
+        System.out.println("Введите знаменатель первой дроби: ");
+        int denominator1 = scanner.nextInt();
+        Fraction f1 = new Fraction(numerator1, denominator1);
+        System.out.println("Введите числитель второй дроби: ");
+        int numerator2 = scanner.nextInt();
+        System.out.println("Введите знаменатель второй дроби: ");
+        int denominator2 = scanner.nextInt();
+        Fraction f2 = new Fraction(numerator2, denominator2);
+        System.out.println("Введите числитель третьей дроби: ");
+        int numerator3 = scanner.nextInt();
+        System.out.println("Введите знаменатель третьей дроби: ");
+        int denominator3 = scanner.nextInt();
+        Fraction f3 = new Fraction(numerator3, denominator3);
+        System.out.println("Примеры операций с дробями:");
+        System.out.println(f1 + " + " + f2 + " = " + f1.sum(f2));
+        System.out.println(f1 + " - " + f2 + " = " + f1.minus(f2));
+        System.out.println(f1 + " * " + f2 + " = " + f1.multiply(f2));
+        System.out.println(f1 + " / " + f2 + " = " + f1.div(f2));
+        Fraction result = f1.sum((f2).div(f3)).minus(5);
+        System.out.println("f1 + f2 / f3 - 5 = " + result);
+    }
+}
