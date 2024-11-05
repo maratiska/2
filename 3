@@ -1,0 +1,55 @@
+class Department {
+    private String name;
+    private Employee head;
+    public Department(String name, Employee head) {
+        this.name = name;
+        this.head = head;
+    }
+    public String getName() {
+        return name;
+    }
+    public Employee getHead() {
+        return head;
+    }
+    public String toString() {
+        return "Отдел " + name + ", начальник которого " + head.getName();
+    }
+}
+class Employee {
+    private String name;
+    private Department department;
+    public Employee(String name) {
+        this.name = name;
+    }
+    public Employee(String name, Department department) {
+        this.name = name;
+        this.department = department;
+    }
+    public String getName() {
+        return name;
+    }
+    public void setDepartment(Department department) {
+        this.department = department;
+    }
+    public String toString() {
+        if (this.equals(department.getHead())) {
+            return name + " начальник отдела " + department.getName();
+        } else {
+            return name + " работает в отделе " + department.getName() + ", начальник которого " + department.getHead().getName();
+        }
+    }
+}
+public class Main {
+    public static void main(String[] args) {
+        Employee petrov = new Employee("Петров");
+        Employee kozlov = new Employee("Козлов");
+        Employee sidorov = new Employee("Сидоров");
+        Department itDepartment = new Department("IT", kozlov);
+        petrov.setDepartment(itDepartment);
+        sidorov.setDepartment(itDepartment);
+        kozlov.setDepartment(itDepartment);
+        System.out.println(petrov);
+        System.out.println(kozlov);
+        System.out.println(sidorov);
+    }
+}
