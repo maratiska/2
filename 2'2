@@ -1,0 +1,37 @@
+import java.util.Scanner;
+public class Main {
+    static class House {
+        private int floors;
+        public House(int floors) {
+            this.floors = floors;
+        }
+        public String toString() {
+            return "Дом с " + floors + " " + getCorrectEnding(floors) + ".";
+        }
+        private String getCorrectEnding(int floors) {
+            if (floors % 10 == 1 && floors % 100 != 11) {
+                return "этажом";
+            }
+            else {
+                return "этажами";
+            }
+        }
+    }
+    public static void main(String[] args) {
+        House house1 = new House(1);
+        House house2 = new House(5);
+        House house3 = new House(23);
+        System.out.println(house1);
+        System.out.println(house2);
+        System.out.println(house3);
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Введите количество этажей для нового дома: ");
+        while (!scanner.hasNextInt()) {
+            System.out.println("Ошибка! Введите число.");
+            scanner.next();
+        }
+        int userFloors = scanner.nextInt();
+        House userHouse = new House(userFloors);
+        System.out.println(userHouse);
+    }
+}
